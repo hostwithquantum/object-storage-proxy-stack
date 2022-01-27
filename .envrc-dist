@@ -1,0 +1,12 @@
+# build
+export QUANTUM_REGISTRY_USERNAME=
+export QUANTUM_REGISTRY_PASSWORD=
+
+# deploy
+export QUANTUM_ENDPOINT=
+export QUANTUM_STACK=
+export QUANTUM_USER=
+export QUANTUM_PASSWORD=
+
+# container
+export QUANTUM_STORAGE_BUCKET=
