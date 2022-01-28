@@ -1,0 +1,33 @@
+server {
+  listen 80;
+  server_name localhost;
+
+  # To allow special characters in headers
+  ignore_invalid_headers off;
+
+  # Max allowed size of the file to be uploaded
+  client_max_body_size 1000m;
+
+  proxy_buffering off;
+
+  error_log /var/log/nginx/error.log debug;
+
+  location / {
+    # Proxy headers
+    proxy_redirect off;
+    proxy_connect_timeout 300;
+
+    proxy_set_header Authorization     '';
+    proxy_set_header Host              $http_host;
+    proxy_set_header X-Real-IP         $remote_addr;
+    proxy_set_header X-Forwarded-For   $proxy_add_x_forwarded_for;
+    proxy_set_header X-Forwarded-Proto $scheme;
+
+    # Default is HTTP/1, keepalive is only enabled in HTTP/1.1
+    proxy_http_version                 1.1;
+    proxy_set_header Connection        "";
+    chunked_transfer_encoding          off;
+
+    proxy_pass https://s3.storage.planetary-networks.de;
+  }
+}

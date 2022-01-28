@@ -1,0 +1,19 @@
+version: "3.2"
+
+services:
+  proxy:
+    image: r.planetary-quantum.com/quantum-public/object-storage-proxy:dev
+    networks:
+      - public
+    command: [nginx-debug, '-g', 'daemon off;']
+    labels: &traefik_labels
+      - "traefik.enable=true"
+      - "traefik.docker.network=public"
+      - "traefik.port=80"
+      - "traefik.frontend.rule=Host:${QUANTUM_STORAGE_BUCKET}"
+    deploy:
+      labels: *traefik_labels
+
+networks:
+  public:
+    external: true

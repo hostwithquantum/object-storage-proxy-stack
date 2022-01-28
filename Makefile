@@ -4,4 +4,9 @@ test:
 
 .PHONY: deploy
 deploy:
-	quantum-cli stack update --create
+	act -s QUANTUM_REGISTRY_USERNAME \
+		-s QUANTUM_REGISTRY_PASSWORD \
+		-s QUANTUM_USER \
+		-s QUANTUM_PASSWORD \
+		-s QUANTUM_ENDPOINT \
+		-s QUANTUM_STACK
